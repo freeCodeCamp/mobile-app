@@ -1,7 +1,7 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
-import 'package:flutter_skeleton/flutter_skeleton.dart';
+import 'package:loader_skeleton/loader_skeleton.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:freecodecamp/models/card_model.dart';
 import 'package:freecodecamp/service/database_service.dart';
@@ -27,10 +27,8 @@ class _FlashCardListWidgetState extends State<FlashCardListWidget> {
         if (snapshot.connectionState == ConnectionState.waiting ||
             snapshot.connectionState == ConnectionState.active) {
           return CardListSkeleton(
-            style: SkeletonStyle(
-              isCircleAvatar: false,
-              isShowAvatar: false,
-            ),
+            isCircularImage: false,
+            isBottomLinesActive: false,
           );
         } else if (!snapshot.hasData) {
           return Center(

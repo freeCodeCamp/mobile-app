@@ -12,8 +12,8 @@ dependencies:
   sqflite: ^2.0.0+3
   flutter_slidable: ^0.6.0
   flip_card: ^0.5.0
-  flutter_skeleton: ^0.1.0+1
-  flutter_swiper: ^1.1.6
+  loader_skeleton: ^0.0.4
+  flutter_swiper_null_safety: ^1.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

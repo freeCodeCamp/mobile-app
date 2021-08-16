@@ -1,9 +1,7 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:flutter_skeleton/flutter_skeleton.dart';
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:loader_skeleton/loader_skeleton.dart';
+import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:freecodecamp/models/card_model.dart';
 import 'package:freecodecamp/service/database_service.dart';
 
@@ -28,10 +26,8 @@ class _ShowFlashCardWidgetState extends State<ShowFlashCardWidget> {
         if (snapshot.connectionState == ConnectionState.waiting ||
             snapshot.connectionState == ConnectionState.active) {
           return CardSkeleton(
-            style: SkeletonStyle(
-              isCircleAvatar: false,
-              isShowAvatar: false,
-            ),
+            isCircularImage: false,
+            isBottomLinesActive: true,
           );
         } else if (!snapshot.hasData) {
           return Center(
