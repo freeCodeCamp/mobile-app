@@ -1,12 +1,12 @@
-import 'dart:convert';
 import 'dart:math';
-import 'dart:developer' as dev;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:freecodecamp/widgets/article/article-bookmark-feed.dart';
+import 'package:freecodecamp/widgets/article/article-search.dart';
+import 'package:freecodecamp/widgets/drawer.dart';
 
+import 'article-feed-builder.dart';
 import 'article-view.dart';
 
 class ArticleApp extends StatefulWidget {
@@ -92,82 +92,60 @@ class Article {
 }
 
 class _ArticleAppState extends State<ArticleApp> {
-  List articles = [];
-  bool searchBarActive = false;
-  bool hasSearched = false;
-  int page = 0;
+  int _index = 1;
 
-  final searchBarController = TextEditingController();
-
-  late Future<Article> futureArticle;
-  ScrollController _scrollController = new ScrollController();
-  @override
-  void initState() {
-    super.initState();
-    futureArticle = fetchArticle();
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        fetchArticle();
-      }
+  void _onTapped(int index) {
+    setState(() {
+      _index = index;
     });
   }
 
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    searchBarController.dispose();
-    super.dispose();
-    page = 0;
-  }
+  List views = <Widget>[
+    BookmarkViewTemplate(),
+    ArticleFeedBuilder(),
+    ArticleSearch()
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      appBar: AppBar(
+        backgroundColor: Color(0xFF0a0a23),
+        title: Text('articles'),
+        centerTitle: true,
+      ),
+      drawer: Menu(),
       backgroundColor: Color.fromRGBO(0x2A, 0x2A, 0x40, 1),
-      body: FutureBuilder<Article>(
-          future: futureArticle,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              dev.log(articles.length.toString());
-              return ListView.builder(
-                controller: _scrollController,
-                itemCount: articles.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return ArticleTemplate(articels: articles, i: index);
-                },
-              );
-            } else if (snapshot.hasError) {
-              return Text('${snapshot.error}');
-            }
-            return Center(child: const CircularProgressIndicator());
-          }),
+      body: views.elementAt(_index),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Color(0xFF0a0a23),
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Color.fromRGBO(0x99, 0xc9, 0xff, 1),
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.bookmark_outline_sharp,
+                color: Colors.white,
+              ),
+              label: 'Bookmarks'),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.article_sharp,
+                color: Colors.white,
+              ),
+              label: 'Articles'),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.search_sharp,
+                color: Colors.white,
+              ),
+              label: 'Search')
+        ],
+        onTap: _onTapped,
+        currentIndex: _index,
+      ),
     );
-  }
-
-  Future<Article> fetchArticle() async {
-    page++;
-
-    await dotenv.load(fileName: ".env");
-
-    String feedUrl =
-        "https://www.freecodecamp.org/news/ghost/api/v3/content/posts/?key=${dotenv.env['NEWSKEY']}&include=tags,authors&page=" +
-            page.toString() +
-            "&fields=title,url,feature_image,id";
-
-    dev.log(feedUrl);
-    final response = await http.get(Uri.parse(feedUrl));
-    if (response.statusCode == 200) {
-      var newArticles = json.decode(response.body)['posts'];
-      if (mounted) {
-        setState(() {
-          articles.addAll(newArticles);
-        });
-      }
-      return Article.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to load articles');
-    }
   }
 }
 

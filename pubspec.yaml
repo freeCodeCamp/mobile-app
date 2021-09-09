@@ -20,6 +20,14 @@ dependencies:
   flutter_swiper: ^1.1.6
   path_provider: ^2.0.2
   algolia: ^1.0.1
+  hexcolor: ^2.0.5
+  flutter_syntax_view: ^4.0.0
+  jiffy: ^4.1.0
+  share: ^2.0.4
+  flutter_svg: ^0.22.0
+  shared_preferences: ^2.0.7
+  font_awesome_flutter: ^9.1.0
+  html: ^0.15.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -29,8 +37,10 @@ flutter:
     - assets/images/splash_screen.png
     - .env
     - assets/images/
+    - assets/images/placeholder-profile-img.png
     - assets/database/cards-jwasham.db
     - assets/database/bookmarked-article.db
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:

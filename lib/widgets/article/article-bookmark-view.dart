@@ -10,7 +10,7 @@ import 'article-bookmark-feed.dart';
 class ArticleBookmarkView extends StatefulWidget {
   ArticleBookmarkView({Key? key, this.article}) : super(key: key);
 
-  BookmarkedArticle? article;
+  late final BookmarkedArticle? article;
 
   @override
   _ArticleBookmarkViewState createState() => _ArticleBookmarkViewState();
