@@ -5,15 +5,20 @@ version: 1.1.1+4
 environment:
   sdk: ">=2.12.0 <3.0.0"
 dependencies:
-  algolia: ^1.0.1
   cupertino_icons: ^1.0.3
-  flip_card: ^0.5.0
   flutter:
     sdk: flutter
   flutter_dotenv: ^5.0.2
   flutter_html: ^2.1.2
   flutter_lints: ^1.0.4
   flutter_slidable: ^0.6.0
+  flip_card: ^0.5.0
+  flutter_skeleton: ^0.1.0+1
+  flutter_swiper: ^1.1.6
+  algolia: ^1.0.1
+  podcast_search: ^0.5.0
+  just_audio: ^0.9.7
+  audio_service: ^0.17.1
   http: ^0.13.3
   logger: ^1.1.0
   path_provider: ^2.0.3
