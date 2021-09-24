@@ -22,7 +22,7 @@ class NavButtonWidget extends StatelessWidget {
         if (isWebComponent) {
           viewModel.goToBrowser(url);
         } else {
-          viewModel.navNonWebComponent();
+          viewModel.navNonWebComponent(text);
         }
       },
       child: Padding(

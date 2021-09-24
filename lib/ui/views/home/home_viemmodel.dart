@@ -19,9 +19,13 @@ class HomeViewModel extends BaseViewModel {
     );
   }
 
-  void navNonWebComponent() {
-    _navigationService.back();
-    index = 1;
-    notifyListeners();
+  void navNonWebComponent(view) {
+    switch (view) {
+      case 'NEWS':
+        _navigationService.navigateTo(Routes.homeView);
+        break;
+      case 'FORUM':
+        _navigationService.navigateTo(Routes.forumCategoryView);
+    }
   }
 }
