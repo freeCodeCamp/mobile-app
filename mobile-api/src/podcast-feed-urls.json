@@ -7,6 +7,13 @@
     "https://feeds.transistor.fm/scrimba",
     "https://anchor.fm/s/ff0092f4/podcast/rss",
     "https://anchor.fm/s/ff054de4/podcast/rss",
-    "https://anchor.fm/s/ff026c00/podcast/rss"
+    "https://anchor.fm/s/ff026c00/podcast/rss",
+    "https://www.spreaker.com/show/6102064/episodes/feed",
+    "https://feeds.fireside.fm/podrocket/rss",
+    "https://seradio.libsyn.com/rss",
+    "https://rustacean-station.org/podcast.rss",
+    "https://podcast.darknetdiaries.com/",
+    "https://softskills.audio/feed.xml",
+    "https://feeds.jupiterbroadcasting.com/coder"
   ]
 }
