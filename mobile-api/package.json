@@ -23,7 +23,7 @@
     "node-fetch": "3.3.2",
     "bree": "9.2.3",
     "dotenv": "16.4.5",
-    "express": "4.19.2",
+    "express": "4.20.0",
     "mongoose": "8.4.1",
     "rss-parser": "3.13.0"
   },
