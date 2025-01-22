@@ -20,6 +20,19 @@ class NewsImageView extends StatelessWidget {
     return ViewModelBuilder.nonReactive(
       viewModelBuilder: () => NewsImageModel(),
       builder: (context, model, child) => Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          leading: Tooltip(
+                message: 'Back',
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Icon(Icons.arrow_back),
+                ),
+              ),
+        ),
         body: PhotoView(
           backgroundDecoration: const BoxDecoration(
             color: Color.fromRGBO(0x2A, 0x2A, 0x40, 1),
