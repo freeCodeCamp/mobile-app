@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -19,6 +18,8 @@ import 'package:freecodecamp/ui/views/learn/test_runner.dart';
 import 'package:freecodecamp/ui/widgets/setup_dialog_ui.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart';
+import 'package:phone_ide/controller/custom_text_controller.dart';
+import 'package:phone_ide/models/textfield_data.dart';
 import 'package:phone_ide/phone_ide.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
@@ -94,6 +95,9 @@ class ChallengeViewModel extends BaseViewModel {
   int get challengesCompleted => _challengesCompleted;
 
   EditorOptions defaultEditorOptions = EditorOptions();
+
+  TextFieldData? _textFieldData;
+  TextFieldData? get textFieldData => _textFieldData;
 
   final _dialogService = locator<DialogService>();
   final NavigationService _navigationService = locator<NavigationService>();
@@ -213,6 +217,11 @@ class ChallengeViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  set setTextFieldData(TextFieldData textfieldData) {
+    _textFieldData = textfieldData;
+    notifyListeners();
+  }
+
   void init(
     String url,
     Block block,
@@ -277,6 +286,31 @@ class ChallengeViewModel extends BaseViewModel {
       );
       _mounted = true;
     }
+  }
+
+  void listenToFocusedController(Editor editor) {
+    editor.textfieldData.stream.listen((textfieldData) {
+      setTextFieldData = textfieldData;
+    });
+  }
+
+  // This function allows the symbols to be insterted into the text controllers
+  void insertSymbol(String symbol, Editor editor) async {
+    final TextEditingControllerIDE focused = textFieldData!.controller;
+    final RegionPosition position = textFieldData!.position;
+    final String text = focused.text;
+    final selection = focused.selection;
+    final newText = text.replaceRange(selection.start, selection.end, symbol);
+    focused.value = TextEditingValue(
+      text: newText,
+      selection: TextSelection.collapsed(
+        offset: selection.start + 1,
+      ),
+    );
+
+    editor.textfieldData.sink.add(
+      TextFieldData(controller: focused, position: position),
+    );
   }
 
   // This prevents the user from requesting the challenge more than once

@@ -40,7 +40,8 @@ dependencies:
   just_audio: ^0.9.37
   path: ^1.8.3 # TODO: upgrade after migrating to FLutter 3.19
   path_provider: ^2.1.3
-  phone_ide: ^1.2.3
+  phone_ide:
+    path: ../../phoneide
   photo_view: ^0.15.0
   pretty_dio_logger: ^1.2.0-beta-1 # NOTE: Do we still want this?
   quick_actions: ^1.0.7
