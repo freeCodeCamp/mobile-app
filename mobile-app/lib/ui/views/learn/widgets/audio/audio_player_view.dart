@@ -88,12 +88,14 @@ class InnerAudioWidget extends StatelessWidget {
           );
 
           Duration? totalDuration = model.audioService.duration();
+          int handleTotal = totalDuration?.inMilliseconds ?? 0;
+          bool bothZero = handleTotal == 0 && position.inMilliseconds == 0;
 
           return Column(
             children: [
-              if (totalDuration != null)
+              if (!bothZero)
                 LinearProgressIndicator(
-                  value: position.inMilliseconds / totalDuration.inMilliseconds,
+                  value: position.inMilliseconds / handleTotal,
                   minHeight: 8,
                 ),
               Row(

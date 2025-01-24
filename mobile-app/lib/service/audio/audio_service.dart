@@ -174,10 +174,11 @@ class AudioPlayerHandler extends BaseAudioHandler {
     }
   }
 
-  Duration parseTimeStamp(String timeStamp) {
-    if (timeStamp == '0') {
+  Duration parseTimeStamp(String? timeStamp) {
+    if (timeStamp == null || timeStamp == '0') {
       return const Duration(milliseconds: 0);
     }
+
     return Duration(
       milliseconds: (double.parse(timeStamp) * 1000).round(),
     );
@@ -205,7 +206,9 @@ class AudioPlayerHandler extends BaseAudioHandler {
     _audioPlayer.setAudioSource(
       ClippingAudioSource(
         start: parseTimeStamp(audio.startTimeStamp),
-        end: parseTimeStamp(audio.finishTimeStamp),
+        end: audio.finishTimeStamp == null
+            ? null
+            : parseTimeStamp(audio.finishTimeStamp),
         child: AudioSource.uri(
           Uri.parse(
             returnUrl(audio.fileName),

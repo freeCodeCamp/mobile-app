@@ -143,25 +143,26 @@ class EnglishView extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Container(
-                        color: const Color(0xFF0a0a23),
-                        margin: const EdgeInsets.all(8),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Wrap(
-                                  children: model.getFillInBlankWidgets(
-                                    challenge,
-                                    context,
+                      if (challenge.fillInTheBlank != null)
+                        Container(
+                          color: const Color(0xFF0a0a23),
+                          margin: const EdgeInsets.all(8),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Wrap(
+                                    children: model.getFillInBlankWidgets(
+                                      challenge,
+                                      context,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
-                      ),
                       Row(
                         children: [
                           Expanded(

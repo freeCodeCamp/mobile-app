@@ -273,8 +273,8 @@ class Blank {
 class EnglishAudio {
   final String fileName;
   final String startTime;
-  final String startTimeStamp;
-  final String finishTimeStamp;
+  final String? startTimeStamp;
+  final String? finishTimeStamp;
 
   const EnglishAudio({
     required this.fileName,
@@ -287,8 +287,8 @@ class EnglishAudio {
     return EnglishAudio(
       fileName: data['filename'],
       startTime: data['startTime'].toString(),
-      startTimeStamp: data['startTimestamp'].toString(),
-      finishTimeStamp: data['finishTimestamp'].toString(),
+      startTimeStamp: data['startTimestamp']?.toString(),
+      finishTimeStamp: data['finishTimestamp']?.toString(),
     );
   }
 }
