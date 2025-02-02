@@ -126,7 +126,6 @@ class ChallengeView extends StatelessWidget {
                 );
 
                 model.setEditorText = text;
-                model.setHasTypedInEditor = true;
                 model.setCompletedChallenge = false;
               });
 
@@ -465,41 +464,37 @@ class ChallengeView extends StatelessWidget {
               children: [
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 8),
-                  color: !model.hasTypedInEditor
-                      ? const Color.fromARGB(255, 9, 79, 125)
-                      : model.completedChallenge
-                          ? const Color.fromRGBO(0x20, 0xD0, 0x32, 1)
-                          : const Color.fromRGBO(0x1D, 0x9B, 0xF0, 1),
+                  color: model.completedChallenge
+                      ? const Color.fromRGBO(0x20, 0xD0, 0x32, 1)
+                      : const Color.fromRGBO(0x1D, 0x9B, 0xF0, 1),
                   child: IconButton(
                     icon: model.runningTests
                         ? const CircularProgressIndicator()
                         : model.completedChallenge
                             ? const Icon(Icons.arrow_forward_rounded, size: 30)
                             : const Icon(Icons.done_rounded, size: 30),
-                    onPressed: model.hasTypedInEditor
-                        ? () async {
-                            model.setAfterFirstTest = false;
-                            model.setConsoleMessages = [];
-                            model.setUserConsoleMessages = [];
-                            if (model.showPanel &&
-                                model.panelType == PanelType.pass) {
-                              model.learnService.goToNextChallenge(
-                                model.block!.challenges.length,
-                                challengesCompleted,
-                                challenge,
-                                block,
-                              );
-                            }
+                    onPressed: () async {
+                      model.setAfterFirstTest = false;
+                      model.setConsoleMessages = [];
+                      model.setUserConsoleMessages = [];
+                      if (model.showPanel &&
+                          model.panelType == PanelType.pass) {
+                        model.learnService.goToNextChallenge(
+                          model.block!.challenges.length,
+                          challengesCompleted,
+                          challenge,
+                          block,
+                        );
+                      }
 
-                            model.setShowPanel = false;
-                            model.setIsRunningTests = true;
-                            await model.runner.setWebViewContent(
-                              challenge,
-                              controller: model.testController!,
-                            );
-                            FocusManager.instance.primaryFocus?.unfocus();
-                          }
-                        : null,
+                      model.setShowPanel = false;
+                      model.setIsRunningTests = true;
+                      await model.runner.setWebViewContent(
+                        challenge,
+                        controller: model.testController!,
+                      );
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    },
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                   ),

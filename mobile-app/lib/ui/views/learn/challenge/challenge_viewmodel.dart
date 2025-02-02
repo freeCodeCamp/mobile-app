@@ -55,9 +55,6 @@ class ChallengeViewModel extends BaseViewModel {
   bool _afterFirstTest = false;
   bool get afterFirstTest => _afterFirstTest;
 
-  bool _hasTypedInEditor = false;
-  bool get hasTypedInEditor => _hasTypedInEditor;
-
   bool _completedChallenge = false;
   bool get completedChallenge => _completedChallenge;
 
@@ -150,11 +147,6 @@ class ChallengeViewModel extends BaseViewModel {
 
   set setShowConsole(bool value) {
     _showConsole = value;
-    notifyListeners();
-  }
-
-  set setHasTypedInEditor(bool value) {
-    _hasTypedInEditor = true;
     notifyListeners();
   }
 
