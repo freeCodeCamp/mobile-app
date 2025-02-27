@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
@@ -163,11 +162,10 @@ class HintWidgetView extends StatelessWidget {
                     IconButton(
                       onPressed: () async {
                         final forumLink = await genForumLink(
-                            await challengeModel.challenge as Challenge,
+                            challengeModel.challenge as Challenge,
                             challengeModel.block as Block,
                             context,
                             editorText: challengeModel.editorText ?? '');
-                        log(forumLink);
                         challengeModel.learnService.forumHelpDialog(forumLink);
                       },
                       icon: const Icon(Icons.question_mark),

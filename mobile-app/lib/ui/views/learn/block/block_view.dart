@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freecodecamp/extensions/i18n_extension.dart';
 import 'package:freecodecamp/models/learn/curriculum_model.dart';
-import 'package:freecodecamp/service/learn/learn_service.dart';
 import 'package:freecodecamp/ui/views/learn/block/block_viewmodel.dart';
 import 'package:freecodecamp/ui/views/learn/utils/learn_globals.dart';
 import 'package:freecodecamp/ui/views/learn/widgets/download_button_widget.dart';
@@ -243,10 +242,7 @@ class BlockView extends StatelessWidget {
             onTap: () async {
               String challengeId = block.challengeTiles[i].id;
 
-              String url = LearnService.baseUrl;
-
               model.routeToChallengeView(
-                '$url/challenges/${block.superBlock.dashedName}/${block.dashedName}/$challengeId.json',
                 block,
                 challengeId,
               );
@@ -380,13 +376,7 @@ class ChallengeTile extends StatelessWidget {
         width: 70,
         child: InkWell(
           onTap: () async {
-            String url = LearnService.baseUrl;
-
-            String fullUrl =
-                '$url/challenges/${block.superBlock.dashedName}/${block.dashedName}/$challengeId.json';
-
             model.routeToChallengeView(
-              fullUrl,
               block,
               challengeId,
             );

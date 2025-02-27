@@ -129,12 +129,10 @@ class LearnLandingViewModel extends BaseViewModel {
           hasInternet: true,
         );
 
-        _navigationService.navigateToChallengeView(
-          url: lastVisitedChallenge[0],
+        _navigationService.navigateToChallengeTemplateView(
           block: block,
-          challengeId: challenge.id,
           challengesCompleted: completedChallenges,
-          isProject: block.challenges.length == 1,
+          challengeId: challenge.id,
         );
       }
     }
@@ -163,7 +161,7 @@ class LearnLandingViewModel extends BaseViewModel {
 
   void disabledButtonSnack() {
     snack.showSnackbar(title: 'Not available use the web version', message: '');
-    Future.delayed( const Duration(milliseconds: 2500), () {
+    Future.delayed(const Duration(milliseconds: 2500), () {
       snack.closeSnackbar();
     });
   }

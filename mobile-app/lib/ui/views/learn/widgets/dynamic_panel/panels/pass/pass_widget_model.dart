@@ -29,7 +29,7 @@ class PassWidgetModel extends BaseViewModel {
     if (_user != null) {
       List<CompletedChallenge>? completedChallenges =
           _user?.completedChallenges;
-      Challenge? currChallenge = await challengeModel.challenge;
+      Challenge? currChallenge = challengeModel.challenge;
       if (currChallenge != null && completedChallenges != null) {
         if (completedChallenges
                 .indexWhere((element) => element.id == currChallenge.id) !=

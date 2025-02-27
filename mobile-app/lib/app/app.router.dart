@@ -13,7 +13,7 @@ import 'package:freecodecamp/models/news/bookmarked_tutorial_model.dart'
 import 'package:freecodecamp/models/podcasts/episodes_model.dart' as _i19;
 import 'package:freecodecamp/models/podcasts/podcasts_model.dart' as _i20;
 import 'package:freecodecamp/ui/views/code_radio/code_radio_view.dart' as _i10;
-import 'package:freecodecamp/ui/views/learn/challenge/challenge_view.dart'
+import 'package:freecodecamp/ui/views/learn/challenge/templates/template_view.dart'
     as _i11;
 import 'package:freecodecamp/ui/views/learn/landing/landing_view.dart' as _i13;
 import 'package:freecodecamp/ui/views/learn/superblock/superblock_view.dart'
@@ -60,7 +60,7 @@ class Routes {
 
   static const codeRadioView = '/code-radio-view';
 
-  static const challengeView = '/challenge-view';
+  static const challengeTemplateView = '/challenge-template-view';
 
   static const profileView = '/profile-view';
 
@@ -84,7 +84,7 @@ class Routes {
     newsAuthorView,
     newsImageView,
     codeRadioView,
-    challengeView,
+    challengeTemplateView,
     profileView,
     learnLandingView,
     nativeLoginView,
@@ -133,8 +133,8 @@ class StackedRouter extends _i1.RouterBase {
       page: _i10.CodeRadioView,
     ),
     _i1.RouteDef(
-      Routes.challengeView,
-      page: _i11.ChallengeView,
+      Routes.challengeTemplateView,
+      page: _i11.ChallengeTemplateView,
     ),
     _i1.RouteDef(
       Routes.profileView,
@@ -239,16 +239,14 @@ class StackedRouter extends _i1.RouterBase {
         settings: data,
       );
     },
-    _i11.ChallengeView: (data) {
-      final args = data.getArgs<ChallengeViewArguments>(nullOk: false);
+    _i11.ChallengeTemplateView: (data) {
+      final args = data.getArgs<ChallengeTemplateViewArguments>(nullOk: false);
       return _i18.MaterialPageRoute<dynamic>(
-        builder: (context) => _i11.ChallengeView(
+        builder: (context) => _i11.ChallengeTemplateView(
             key: args.key,
-            url: args.url,
             block: args.block,
             challengeId: args.challengeId,
-            challengesCompleted: args.challengesCompleted,
-            isProject: args.isProject),
+            challengesCompleted: args.challengesCompleted),
         settings: data,
       );
     },
@@ -513,19 +511,15 @@ class NewsImageViewArguments {
   }
 }
 
-class ChallengeViewArguments {
-  const ChallengeViewArguments({
+class ChallengeTemplateViewArguments {
+  const ChallengeTemplateViewArguments({
     this.key,
-    required this.url,
     required this.block,
     required this.challengeId,
     required this.challengesCompleted,
-    required this.isProject,
   });
 
   final _i18.Key? key;
-
-  final String url;
 
   final _i22.Block block;
 
@@ -533,32 +527,26 @@ class ChallengeViewArguments {
 
   final int challengesCompleted;
 
-  final bool isProject;
-
   @override
   String toString() {
-    return '{"key": "$key", "url": "$url", "block": "$block", "challengeId": "$challengeId", "challengesCompleted": "$challengesCompleted", "isProject": "$isProject"}';
+    return '{"key": "$key", "block": "$block", "challengeId": "$challengeId", "challengesCompleted": "$challengesCompleted"}';
   }
 
   @override
-  bool operator ==(covariant ChallengeViewArguments other) {
+  bool operator ==(covariant ChallengeTemplateViewArguments other) {
     if (identical(this, other)) return true;
     return other.key == key &&
-        other.url == url &&
         other.block == block &&
         other.challengeId == challengeId &&
-        other.challengesCompleted == challengesCompleted &&
-        other.isProject == isProject;
+        other.challengesCompleted == challengesCompleted;
   }
 
   @override
   int get hashCode {
     return key.hashCode ^
-        url.hashCode ^
         block.hashCode ^
         challengeId.hashCode ^
-        challengesCompleted.hashCode ^
-        isProject.hashCode;
+        challengesCompleted.hashCode;
   }
 }
 
@@ -794,27 +782,23 @@ extension NavigatorStateExtension on _i23.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToChallengeView({
+  Future<dynamic> navigateToChallengeTemplateView({
     _i18.Key? key,
-    required String url,
     required _i22.Block block,
     required String challengeId,
     required int challengesCompleted,
-    required bool isProject,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   }) async {
-    return navigateTo<dynamic>(Routes.challengeView,
-        arguments: ChallengeViewArguments(
+    return navigateTo<dynamic>(Routes.challengeTemplateView,
+        arguments: ChallengeTemplateViewArguments(
             key: key,
-            url: url,
             block: block,
             challengeId: challengeId,
-            challengesCompleted: challengesCompleted,
-            isProject: isProject),
+            challengesCompleted: challengesCompleted),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1082,27 +1066,23 @@ extension NavigatorStateExtension on _i23.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithChallengeView({
+  Future<dynamic> replaceWithChallengeTemplateView({
     _i18.Key? key,
-    required String url,
     required _i22.Block block,
     required String challengeId,
     required int challengesCompleted,
-    required bool isProject,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   }) async {
-    return replaceWith<dynamic>(Routes.challengeView,
-        arguments: ChallengeViewArguments(
+    return replaceWith<dynamic>(Routes.challengeTemplateView,
+        arguments: ChallengeTemplateViewArguments(
             key: key,
-            url: url,
             block: block,
             challengeId: challengeId,
-            challengesCompleted: challengesCompleted,
-            isProject: isProject),
+            challengesCompleted: challengesCompleted),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

@@ -206,7 +206,7 @@ class PassButton extends StatelessWidget {
           model.learnService.goToNextChallenge(
             maxChallenges,
             completed,
-            await model.challenge as Challenge,
+            model.challenge as Challenge,
             model.block as Block,
           );
         },

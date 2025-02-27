@@ -87,8 +87,9 @@ class ChallengeViewModel extends BaseViewModel {
   TestRunner runner = TestRunner();
 
   SnackbarService snackbar = locator<SnackbarService>();
-  Future<Challenge>? _challenge;
-  Future<Challenge>? get challenge => _challenge;
+
+  Challenge? _challenge;
+  Challenge? get challenge => _challenge;
 
   Block? _block;
   Block? get block => _block;
@@ -179,7 +180,7 @@ class ChallengeViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  set setChallenge(Future<Challenge> challenge) {
+  set setChallenge(Challenge challenge) {
     _challenge = challenge;
     notifyListeners();
   }
@@ -225,40 +226,33 @@ class ChallengeViewModel extends BaseViewModel {
   }
 
   void init(
-    String url,
     Block block,
-    String challengeId,
+    Challenge challenge,
     int challengesCompleted,
   ) async {
     setupDialogUi();
 
-    List<int> nonEditorTypes = [10, 11, 15, 19, 21, 22];
+    setChallenge = challenge;
 
-    setChallenge = learnOfflineService.getChallenge(url, challengeId);
-    Challenge challenge = await _challenge!;
+    List<ChallengeFile> currentEditedChallenge = challenge.files
+        .where((element) => element.editableRegionBoundaries.isNotEmpty)
+        .toList();
 
-    learnService.setLastVisitedChallenge(url, block);
-    if (!nonEditorTypes.contains(challenge.challengeType)) {
-      List<ChallengeFile> currentEditedChallenge = challenge.files
-          .where((element) => element.editableRegionBoundaries.isNotEmpty)
-          .toList();
+    if (editorText == null) {
+      String text = await fileService.getExactFileFromCache(
+        challenge,
+        currentEditedChallenge.isEmpty
+            ? challenge.files.first
+            : currentEditedChallenge.first,
+      );
 
-      if (editorText == null) {
-        String text = await fileService.getExactFileFromCache(
-          challenge,
-          currentEditedChallenge.isEmpty
-              ? challenge.files.first
-              : currentEditedChallenge.first,
-        );
-
-        if (text != '') {
-          setEditorText = text;
-        }
+      if (text != '') {
+        setEditorText = text;
       }
-      setCurrentSelectedFile = currentEditedChallenge.isEmpty
-          ? challenge.files[0].name
-          : currentEditedChallenge[0].name;
     }
+    setCurrentSelectedFile = currentEditedChallenge.isEmpty
+        ? challenge.files[0].name
+        : currentEditedChallenge[0].name;
 
     setBlock = block;
     setChallengesCompleted = challengesCompleted;
@@ -360,7 +354,7 @@ class ChallengeViewModel extends BaseViewModel {
   Future<String> parsePreviewDocument(String doc) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    Challenge? currChallenge = await challenge;
+    Challenge? currChallenge = challenge;
 
     if (currChallenge == null) return parse(doc).outerHtml;
 
@@ -448,7 +442,7 @@ class ChallengeViewModel extends BaseViewModel {
     );
 
     if (res?.confirmed == true) {
-      Challenge? currChallenge = await challenge;
+      Challenge? currChallenge = challenge;
 
       for (ChallengeFile file in currChallenge!.files) {
         prefs.remove('${currChallenge.id}.${file.name}');
@@ -467,13 +461,11 @@ class ChallengeViewModel extends BaseViewModel {
       await prefs.remove(challengeUrl);
 
       _navigationService.replaceWith(
-        Routes.challengeView,
-        arguments: ChallengeViewArguments(
-          url: challengeUrl,
+        Routes.challengeTemplateView,
+        arguments: ChallengeTemplateViewArguments(
           block: block!,
           challengeId: currChallenge.id,
           challengesCompleted: challengesCompleted,
-          isProject: block!.challenges.length == 1,
         ),
       );
     }
