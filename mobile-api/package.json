@@ -28,10 +28,10 @@
     "rss-parser": "3.13.0"
   },
   "devDependencies": {
-    "@babel/preset-typescript": "7.24.7",
+    "@babel/preset-typescript": "7.26.0",
     "@types/jest": "29.5.12",
-    "@babel/preset-env": "7.24.7",
-    "@babel/plugin-transform-typescript": "7.24.7",
+    "@babel/preset-env": "7.26.9",
+    "@babel/plugin-transform-typescript": "7.26.8",
     "@breejs/ts-worker": "2.0.0",
     "@types/express": "4.17.21",
     "@types/node": "20.14.2",
