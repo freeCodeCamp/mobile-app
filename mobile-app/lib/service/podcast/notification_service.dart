@@ -34,12 +34,12 @@ class NotificationService {
       iOS: iosInitializationSettings,
     );
 
+    await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
+
     await _flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.requestNotificationsPermission();
-
-    await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
   Future<void> showNotification(String title, String body) async {
